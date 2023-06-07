@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- Folder to save log files. YOu can use relative path like "logs", which 
+		will save to folder under running application, or you can use absolute path 
+		like C:/logs on windows, or /usr/home/course/logs for mac/linux -->
+	<property name="log_home" value="logs" />
+
+	<!-- The log pattern, this will set format for output log. For detail explanation, 
+		check https://logback.qos.ch/manual/layouts.html -->
+	<property name="log_pattern"
+		value="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{40} - %msg%n" />
+
+	<!-- Append to file named practical-java.log, generated daily (file from 
+		previous day will be renamed as practical-java.[date].log. If the log -->
+	<appender name="file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log_home}/atracker.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log_home}/atracker.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>5MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${log_pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- append to console -->
+	<appender name="stdout"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>
+				${log_pattern}
+			</pattern>
+		</layout>
+	</appender>
+
+	<!-- append everything unde package com.course on level INFO, WARN, ERROR. 
+		Log into console appender AND file appender -->
+	<logger name="com.tigerit" level="trace" additivity="false">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="file" />
+	</logger>
+	
+	<root level="info">
+			<appender-ref ref="stdout" />
+		
+	</root>
+
+</configuration>

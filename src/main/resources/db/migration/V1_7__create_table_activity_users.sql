@@ -1,0 +1,33 @@
+CREATE TABLE ACTIVITY_USERS_ACTR
+(
+    ACTIVITY_ID         BIGSERIAL PRIMARY KEY,
+    ID                  BIGINT              NOT NULL,
+    FIRST_NAME          VARCHAR(64)         NOT NULL,
+    LAST_NAME           VARCHAR(64)         NOT NULL,
+
+    USERNAME            VARCHAR(64)         NOT NULL,
+    EMAIL               VARCHAR(128)        NOT NULL,
+    ENCRYPTED_PASSWORD  VARCHAR(64)         NOT NULL,
+    USER_ID             VARCHAR(64)         NOT NULL,
+    USER_ROLE_ID        BIGINT              NOT NULL,
+    ORGANIZATION_ID     BIGINT              NOT NULL,
+    DOMAIN_NAME         VARCHAR(64)         NOT NULL,
+    LOGGED_OUT_AT       TIMESTAMP(6),
+    STATUS              VARCHAR(32) ,
+    USER_TYPE           VARCHAR(16)         NOT NULL,
+    USER_CATEGORY       VARCHAR(32)         NOT NULL,
+    OTP                 VARCHAR(32),
+
+    ACTIVITY_USER       VARCHAR(64)         NOT NULL,
+    ACTIVITY_ACTION     INT                 NOT NULL,
+    ACTIVITY_TIME       TIMESTAMP(6)        NOT NULL,
+
+    CREATED_BY          VARCHAR(64)         NOT NULL,
+    CREATE_TIME         TIMESTAMP(6)        NOT NULL,
+    EDITED_BY           VARCHAR(64),
+    EDIT_TIME           TIMESTAMP(6),
+
+    INTERNAL_VERSION    BIGINT      DEFAULT 0
+);
+CREATE SEQUENCE ACTIVITY_USERS_ACTR_SEQ INCREMENT BY 2 START WITH 1 NO CYCLE OWNED BY ACTIVITY_USERS_ACTR.ACTIVITY_ID;
+
